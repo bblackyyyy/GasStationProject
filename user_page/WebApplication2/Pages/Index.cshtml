@@ -1,0 +1,69 @@
+﻿@page "/{stationId:int}/{pumpId:int}"
+@model IndexModel
+@{
+    ViewData["Title"] = "GasStation";
+}
+
+<style>
+    body {
+        background-color: #D9D9D9;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* square fuel buttons */
+    .square-btn {
+        width: calc(25% - 20px);
+        padding-top: 25%;
+        margin: 10px;
+        background-color: #FFD700;
+        color: #ffffff;
+        border: none;
+        display: inline-block;
+        text-align: center;
+        font-size: 1em;
+        position: relative;
+        border-radius: 15%;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .square-btn span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.5em;
+    }
+
+    .square-btn:hover {
+        background-color: #f8d51b;
+        cursor: pointer;
+    }
+</style>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; min-height: 100vh;">
+    <button class="square-btn" onclick="redirectToFuel('Diesel')"><span>Diesel</span></button>
+    <button class="square-btn" onclick="redirectToFuel('E10')"><span>E10</span></button>
+    <button class="square-btn" onclick="redirectToFuel('E5')"><span>E5</span></button>
+    <button class="square-btn" onclick="redirectToFuel('98')"><span>98</span></button>
+</div>
+
+@section Scripts {
+    <script>
+        // IDs come from the Razor Page model (bound via the route)
+        const stationId = '@Model.RouteData.Values["stationId"]';
+        const pumpId    = '@Model.RouteData.Values["pumpId"]';
+
+        /**
+         * Build: /{stationId}/{pumpId}/CustomerPage/{fuel}
+         */
+        function redirectToFuel(fuelType) {
+            if (!stationId || !pumpId) {
+                alert('Station or Pump ID missing in URL.');
+                return;
+            }
+            const url = `/${stationId}/${pumpId}/CustomerPage/${encodeURIComponent(fuelType)}`;
+            window.location.href = url;
+        }
+    </script>
+}

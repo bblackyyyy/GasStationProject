@@ -1,0 +1,83 @@
+﻿@* File: _Layout.cshtml *@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GasStation</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication2.styles.css" asp-append-version="true" />
+</head>
+<body>
+@{
+    // 1️⃣  Fetch IDs from the current route if present
+    var routeStation = Context.Request.RouteValues["stationId"]?.ToString();
+    var routePump    = Context.Request.RouteValues["pumpId"]?.ToString();
+
+    // 2️⃣  Otherwise fall back to the session values we stored earlier
+    var sessionStation = Context.Session.GetInt32("StationId")?.ToString();
+    var sessionPump    = Context.Session.GetInt32("PumpId")?.ToString();
+
+    string stationText = routeStation ?? sessionStation ?? "—";  // show em‑dash if unknown
+    string pumpText    = routePump    ?? sessionPump    ?? "—";
+}
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom box-shadow mb-3">
+        <div class="container">
+            <!-- Brand / home link -->
+            <a class="navbar-brand" asp-area="" asp-page="/Index">
+                <img src="~/gas-icon.png" alt="GasStation icon" style="width:30px;height:30px;" />
+                GasStation
+            </a>
+
+            <!-- Collapse toggle (mobile) -->
+            <button class="navbar-toggler order-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Main navbar content -->
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between order-3">
+                <ul class="navbar-nav flex-grow-1 align-items-sm-center">
+                    <!-- Station & Pump IDs (always visible) -->
+                    <li class="nav-item">
+                        <span class="navbar-text text-dark me-sm-3">Station @stationText</span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="navbar-text text-dark">Pump @pumpText</span>
+                    </li>
+
+                    <!-- Back icon aligned right -->
+                    <li class="nav-item ms-auto mt-2 mt-sm-0 d-flex align-items-center">
+                        <img src="~/icons8-back-button-64.png" alt="Back"
+                             style="width:45px;height:45px;cursor:pointer;" onclick="history.back()" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2025 – GasStation – <a asp-area="" asp-page="/Privacy">Privacy</a>
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

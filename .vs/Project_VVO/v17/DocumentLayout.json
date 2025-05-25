@@ -1,0 +1,90 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\project\\GasStationProject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{58A765A0-2E94-4065-A57A-49668D89A27E}|Project_VVO.csproj|c:\\project\\gasstationproject\\user_page\\webapplication2\\db_connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58A765A0-2E94-4065-A57A-49668D89A27E}|Project_VVO.csproj|solutionrelative:user_page\\webapplication2\\db_connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58A765A0-2E94-4065-A57A-49668D89A27E}|Project_VVO.csproj|c:\\project\\gasstationproject\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{58A765A0-2E94-4065-A57A-49668D89A27E}|Project_VVO.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58A765A0-2E94-4065-A57A-49668D89A27E}|Project_VVO.csproj|c:\\project\\gasstationproject\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58A765A0-2E94-4065-A57A-49668D89A27E}|Project_VVO.csproj|solutionrelative:databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DB_Connection.cs",
+              "DocumentMoniker": "C:\\project\\GasStationProject\\user_page\\WebApplication2\\DB_Connection.cs",
+              "RelativeDocumentMoniker": "user_page\\WebApplication2\\DB_Connection.cs",
+              "ToolTip": "C:\\project\\GasStationProject\\user_page\\WebApplication2\\DB_Connection.cs",
+              "RelativeToolTip": "user_page\\WebApplication2\\DB_Connection.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T14:42:03.263Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\project\\GasStationProject\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\project\\GasStationProject\\MainWindow.xaml*",
+              "RelativeToolTip": "MainWindow.xaml*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-24T14:39:41.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DataBaseService.cs",
+              "DocumentMoniker": "C:\\project\\GasStationProject\\DataBaseService.cs",
+              "RelativeDocumentMoniker": "DataBaseService.cs",
+              "ToolTip": "C:\\project\\GasStationProject\\DataBaseService.cs",
+              "RelativeToolTip": "DataBaseService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T14:33:52.34Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

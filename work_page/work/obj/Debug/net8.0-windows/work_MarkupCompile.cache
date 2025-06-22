@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\project\GasStationProject\work_page\work\obj\Debug\net8.0-windows\
+E:\projects\work_page\work\obj\Debug\net8.0-windows\
 work
 none
 false
-TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\project\GasStationProject\work_page\work\App.xaml
-11407045341
-
-5-254546769
-201-1005430181
-MainWindow.xaml;
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
+E:\projects\work_page\work\App.xaml
+2-1337019278
+31819880076
+6-861447004
+218271023892
+Pages\AdminPanelWindow.xaml;Pages\LoginWindow.xaml;
 
 False
 

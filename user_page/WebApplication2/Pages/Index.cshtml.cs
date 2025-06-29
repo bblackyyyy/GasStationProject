@@ -1,18 +1,18 @@
+
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebApplication2.Pages;
-
-public class IndexModel : PageModel
+namespace WebApplication2.Pages
 {
-    private readonly ILogger<IndexModel> _logger;
-
-    public IndexModel(ILogger<IndexModel> logger)
+    public class IndexModel : PageModel
     {
-        _logger = logger;
-    }
+        [BindProperty(SupportsGet = true)]
+        public int StationId { get; set; }
 
-    public void OnGet()
-    {
+        [BindProperty(SupportsGet = true)]
+        public int PumpId { get; set; }
+
+        public void OnGet() { }
     }
 }

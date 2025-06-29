@@ -1,5 +1,6 @@
 ﻿@page "/PaymentPage"
 @model PaymentPageModel
+@inject IConfiguration Config 
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Payment Page";
@@ -30,7 +31,7 @@
     </div>
 
     <div class="button-container">
-        <!-- Cash: post back to generate & download PDF -->
+        
         <form asp-page-handler="Cash" method="post" class="m-0">
             <input type="hidden" name="StationId" value="@Model.StationId" />
             <input type="hidden" name="PumpId"    value="@Model.PumpId"    />
@@ -40,7 +41,67 @@
             <button type="submit" class="payment-btn">Cash</button>
         </form>
 
-        <!-- Card unchanged -->
-        <button class="payment-btn" onclick="location.href='/CardPage'">Card</button>
+        <!-- Card: posts back, gets clientSecret, runs Stripe.js -->
+        <form asp-page-handler="Card" method="post" class="m-0" id="cardForm">
+            <input type="hidden" name="StationId" value="@Model.StationId" />
+            <input type="hidden" name="PumpId"    value="@Model.PumpId"    />
+            <input type="hidden" name="Fuel"      value="@Model.Fuel"      />
+            <input type="hidden" name="Litres"    value="@Model.Litres"    />
+            <input type="hidden" name="Total"     value="@Model.Total"     />
+            <button type="submit" class="payment-btn">Card</button>
+        </form>
     </div>
 </div>
+
+@section Scripts {
+    @* <script src="https://js.stripe.com/v3/"></script> *@
+    @* <script> *@
+    @*     const stripe = Stripe('@(Environment.GetEnvironmentVariable("Stripe_key"))'); *@
+    @*     document.getElementById('cardForm').addEventListener('submit', async (e) => { *@
+    @*         e.preventDefault(); *@
+    @* *@
+    @*         const formData = new FormData(e.target); *@
+    @*         const response = await fetch(e.target.action, { method: 'POST', body: formData }); *@
+    @* *@
+    @*         if (!response.ok) { *@
+    @*             alert('Unable to start card payment \- server error.'); *@
+    @*             return; *@
+    @*         } *@
+    @* *@
+    @*         const data = await response.json(); *@
+    @*         const clientSecret = data.clientSecret; *@
+    @*         const { error } = await stripe.confirmCardPayment(clientSecret, { *@
+    @*             payment_method: { card: { token: 'tok_visa' } } *@
+    @*         }); *@
+    @* *@
+    @*         if (error) { *@
+    @*             alert(error.message); *@
+    @*         } else { *@
+    @*             window.location.href = '/Thanks'; *@
+    @*         } *@
+    @*     }); *@
+    @* </script> *@
+    
+    
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const stripe = Stripe('@(Environment.GetEnvironmentVariable("Stripe_key"))');
+        document.getElementById('cardForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            const formData = new FormData(e.target);
+            const response = await fetch(e.target.action, { method: 'POST', body: formData });
+    
+            if (!response.ok) {
+                alert('Unable to start card payment - server error.');
+                return;
+            }
+    
+            const data = await response.json();
+            const sessionId = data.sessionId;
+            stripe.redirectToCheckout({ sessionId: sessionId });
+        });
+    </script>
+}
+
+

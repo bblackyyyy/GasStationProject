@@ -1,4 +1,4 @@
-﻿@* File: Pages/second_customer_page.cshtml *@
+﻿
 @page "/{stationId:int}/{pumpId:int}/CustomerPage/{fuel}"
 @model SecondCustomerPageModel
 @{
@@ -87,11 +87,12 @@
 
 @section Scripts {
 <script>
-    // ─── server‑provided rates ───
-    const pricePerLitre = @(Model.PricePerLitre.ToString("F2", System.Globalization.CultureInfo.InvariantCulture));
-    const taxPerLitre   = @(Model.TaxPerLitre.ToString("F2", System.Globalization.CultureInfo.InvariantCulture));
+    
+    const pricePerLitre = @Model.PricePerLitre.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
 
-    // IDs & fuel from the route
+    const taxPerLitre   = @(Convert.ToDouble(Model.TaxPerLitre).ToString("F2", System.Globalization.CultureInfo.InvariantCulture));
+
+   
     const stationId = '@RouteData.Values["stationId"]';
     const pumpId    = '@RouteData.Values["pumpId"]';
     const fuelType  = '@Model.Fuel';
@@ -99,7 +100,7 @@
     const amountBox = document.getElementById('dieselAmount');
     const totalBox  = document.getElementById('totalPrice');
 
-    /* helper: write a short‑lived cookie */
+    
     function setCookie(name, value, maxSeconds) {
         document.cookie = `${name}=${value}; path=/; max-age=${maxSeconds}`;
     }
@@ -123,12 +124,12 @@
             return;
         }
         const total = totalBox.value;
-        // store total in a 10‑minute cookie
+        
         setCookie('TotalPrice', total, 600);
 
         const url = `/PaymentPage?stationId=${stationId}&pumpId=${pumpId}` +
                     `&fuel=${encodeURIComponent(fuelType)}` +
-                    `&litres=${litres}`; // total omitted from URL
+                    `&litres=${litres}`; 
         window.location.href = url;
     });
 </script>

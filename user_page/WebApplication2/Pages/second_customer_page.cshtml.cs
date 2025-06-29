@@ -1,70 +1,67 @@
-﻿// File: Pages/second_customer_page.cshtml.cs
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApplication2;                
 
-namespace WebApplication2.Pages
+public class SecondCustomerPageModel : PageModel
 {
-    public class SecondCustomerPageModel : PageModel
+    private readonly DB_Connection db;
+    
+
+    public SecondCustomerPageModel(DB_Connection db)   
     {
-        /* ───────────── route/query data ───────────── */
-        [BindProperty(SupportsGet = true)] public int?    StationId { get; set; }
-        [BindProperty(SupportsGet = true)] public int?    PumpId    { get; set; }
-        [BindProperty(SupportsGet = true)] public string? Fuel      { get; set; }
+        this.db = db;
+    }
 
-        /* ───────────── exposed to Razor ───────────── */
-        public int    AvailableLitres { get; private set; }
-        public double PricePerLitre   { get; private set; }
-        public double TaxPerLitre     { get; private set; }
+    [BindProperty(SupportsGet = true)] public int StationId { get; set; }
+    [BindProperty(SupportsGet = true)] public int? PumpId    { get; set; }
+    [BindProperty(SupportsGet = true)] public string? Fuel   { get; set; }
 
-        public IActionResult OnGet(int? stationId, int? pumpId, string? fuel)
+    public float   AvailableLitres { get; private set; }
+    public float PricePerLitre   { get; private set; }
+    public double TaxPerLitre    { get; private set; }
+
+    public async Task<IActionResult> OnGetAsync(int stationId, int pumpId, string fuel)
+    {
+                                    
+
+        StationId = stationId;
+        PumpId    = pumpId;
+        Fuel      = fuel;
+
+        if (StationId is { } sid && PumpId is { } pid)
         {
-            /* sync bound + route */
-            StationId ??= stationId;
-            PumpId    ??= pumpId;
-            Fuel      ??= fuel;
-
-            /* save IDs for layout */
-            if (StationId is { } sid && PumpId is { } pid)
-            {
-                HttpContext.Session.SetInt32("StationId", sid);
-                HttpContext.Session.SetInt32("PumpId",    pid);
-            }
-
-            /* ⇢ static price & tax per fuel type */
-            switch (Fuel?.ToLowerInvariant())
-            {
-                case "diesel":
-                    PricePerLitre = 6.00;
-                    TaxPerLitre   = 1.20;
-                    AvailableLitres = 1000;
-                    break;
-
-                case "e10":
-                    PricePerLitre = 5.50;
-                    TaxPerLitre   = 1.00;
-                    AvailableLitres = 1;
-                    break;
-
-                case "e5":
-                    PricePerLitre = 5.80;
-                    TaxPerLitre   = 1.05;
-                    AvailableLitres = 6;
-                    break;
-
-                case "98":
-                    PricePerLitre = 6.50;
-                    TaxPerLitre   = 1.30;
-                    AvailableLitres = 100;
-                    break;
-
-                default:
-                    PricePerLitre = 6.00;
-                    TaxPerLitre   = 1.20;
-                    AvailableLitres = 1000;
-                    break;
-            }
-
-            return Page();
+            HttpContext.Session.SetInt32("StationId", sid);
+            HttpContext.Session.SetInt32("PumpId",  pid);
         }
+
+        switch (Fuel?.ToLowerInvariant())
+        {
+            case "diesel":
+                PricePerLitre = await db.GetPrice("diesel".Trim());  
+                TaxPerLitre   = await db.GetTax("diesel".Trim());
+                AvailableLitres = await db.GetAvailable(stationId,"diesel".Trim());
+                 
+                break;
+
+            case "e10":
+                PricePerLitre = await db.GetPrice("e10".Trim());
+                TaxPerLitre   = await db.GetTax("e10".Trim());
+                AvailableLitres = await db.GetAvailable(stationId,"e10".Trim());
+                break;
+
+            case "e5":
+                PricePerLitre = await db.GetPrice("e5".Trim());
+                TaxPerLitre   = await db.GetTax("e5".Trim());
+                AvailableLitres = await db.GetAvailable(stationId,"e5".Trim());;
+                break;
+
+            case "98":
+                PricePerLitre = await db.GetPrice("98".Trim());
+                TaxPerLitre   = await db.GetTax("98".Trim());
+                AvailableLitres = await db.GetAvailable(stationId,"98".Trim());;
+                break;
+        }
+
+        return Page();
     }
 }

@@ -11,7 +11,7 @@
         padding: 0;
     }
 
-    /* square fuel buttons */
+   
     .square-btn {
         width: calc(25% - 20px);
         padding-top: 25%;
@@ -50,13 +50,12 @@
 
 @section Scripts {
     <script>
-        // IDs come from the Razor Page model (bound via the route)
+       
         const stationId = '@Model.RouteData.Values["stationId"]';
         const pumpId    = '@Model.RouteData.Values["pumpId"]';
 
-        /**
-         * Build: /{stationId}/{pumpId}/CustomerPage/{fuel}
-         */
+        
+         
         function redirectToFuel(fuelType) {
             if (!stationId || !pumpId) {
                 alert('Station or Pump ID missing in URL.');

@@ -15,11 +15,13 @@ using System.Windows.Shapes;
 namespace work.Pages
 {
     /// <summary>
-    /// Interaction logic for AdminPanelWindow.xaml
+    /// Interaction logic for FuelStorageWindow.xaml
     /// </summary>
-    public partial class AdminPanelWindow : Window
+    public partial class AddFuelWindow : Window
     {
-        public AdminPanelWindow(string adminEmail)
+
+
+        public AddFuelWindow(string adminEmail)
         {
             InitializeComponent();
             EmailTextBlock.Text = adminEmail;
@@ -27,9 +29,9 @@ namespace work.Pages
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            var login = new LoginWindow();
-            login.Show();
+            var monitoring = new MonitoringWindow(EmailTextBlock.Text);
             this.Close();
+            monitoring.Show();
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -37,21 +39,6 @@ namespace work.Pages
             var login = new LoginWindow();
             login.Show();
             this.Close();
-        }
-
-        private void FuelStorageButton_Click(object sender, RoutedEventArgs e)
-        {
-            var fuelStorage = new FuelStorageWindow(EmailTextBlock.Text);
-            this.Close();
-            fuelStorage.Show();
-            
-        }
-
-        private void MonitoringButton_Click(object sender, RoutedEventArgs e)
-        {
-            var monitoring = new MonitoringWindow(EmailTextBlock.Text);
-            this.Close();
-            monitoring.Show();
         }
     }
 }

@@ -72,3 +72,11 @@ E:\projects\work_page\work\bin\Debug\net8.0-windows\Pages\Icons\administrator.pn
 E:\projects\work_page\work\obj\Debug\net8.0-windows\work_Content.g.cs
 E:\projects\work_page\work\bin\Debug\net8.0-windows\Pages\Icons\back-button.png
 E:\projects\work_page\work\bin\Debug\net8.0-windows\Pages\Icons\logout.png
+E:\projects\work_page\work\obj\Debug\net8.0-windows\Pages\FuelStorageWindow.baml
+E:\projects\work_page\work\obj\Debug\net8.0-windows\Pages\FuelStorageWindow.g.cs
+E:\projects\work_page\work\obj\Debug\net8.0-windows\Pages\AddFuelWindow.baml
+E:\projects\work_page\work\obj\Debug\net8.0-windows\Pages\EditFuelWindow.baml
+E:\projects\work_page\work\obj\Debug\net8.0-windows\Pages\MonitoringWindow.baml
+E:\projects\work_page\work\obj\Debug\net8.0-windows\Pages\AddFuelWindow.g.cs
+E:\projects\work_page\work\obj\Debug\net8.0-windows\Pages\EditFuelWindow.g.cs
+E:\projects\work_page\work\obj\Debug\net8.0-windows\Pages\MonitoringWindow.g.cs

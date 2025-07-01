@@ -2,8 +2,8 @@
 
 public enum FuelType
 {
-    Diesel,
-    E10,
-    E5,
-    A98
+    diesel,
+    e10,
+    e5,
+    a98,
 }

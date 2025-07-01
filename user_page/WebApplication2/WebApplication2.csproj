@@ -7,10 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="DotNetEnv" Version="3.1.1" />
-      <PackageReference Include="QuestPDF" Version="2025.4.0" />
-      <PackageReference Include="Radix.Interaction.Web" Version="4.6.0" />
-      <PackageReference Include="supabase-csharp" Version="0.16.2" />
-    </ItemGroup>
+  <PackageReference Include="DotNetEnv" Version="3.1.1" />
+  <PackageReference Include="QuestPDF" Version="2025.5.1" />
+  <PackageReference Include="Radix.Interaction.Web" Version="4.6.0" />
+  <PackageReference Include="Stripe.net" Version="48.3.0-beta.1" />
+  <PackageReference Include="Supabase" Version="1.1.1" /> 
+</ItemGroup>
 
 </Project>

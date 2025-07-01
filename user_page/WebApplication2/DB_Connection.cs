@@ -74,6 +74,9 @@ namespace WebApplication2
         
         [Column("station_id")]
         public long StationId { get; set; }
+        
+        [Column("pump_id")]
+        public long PumpId { get; set; }
     }
 
     
@@ -235,7 +238,7 @@ namespace WebApplication2
         }
 
 
-        public async Task<long> SetTransaction(long stationId, string fuel, float litres, float money, DateTime date)
+        public async Task<long> SetTransaction(long stationId, string fuel, float litres, float money, DateTime date, int pumpid)
         {
             
             await _initializationTask;
@@ -252,13 +255,12 @@ namespace WebApplication2
                 DataTime      = date,
                 QuantityLiters= litres,
                 Money         = money,
-                FuelType      = fuel?.Trim() ?? ""
+                FuelType      = fuel?.Trim() ?? "",
+                PumpId        = pumpid
             };
 
             
-            var response = await _supabaseClient
-                .From<Transact>()
-                .Insert(txn);
+            var response = await _supabaseClient.From<Transact>().Insert(txn);
 
             
             return response.Models?.FirstOrDefault()?.TransactionId ?? 0L;

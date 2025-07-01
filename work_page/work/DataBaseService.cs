@@ -1,4 +1,7 @@
 ﻿using Supabase;
+using Supabase.Postgrest.Models;
+using Supabase.Postgrest.Attributes;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace work
@@ -28,5 +31,58 @@ namespace work
                 return false;
             }
         }
+
+        public async Task<List<Inventory>> GetInventoryAsync()
+        {
+            var response = await _supabaseClient
+                .From<Inventory>()
+                .Get();
+            return response.Models;
+        }
+
+        public async Task<List<PetrolType>> GetPetrolTypesAsync()
+        {
+            var response = await _supabaseClient
+                .From<PetrolType>()
+                .Get();
+            return response.Models;
+        }
+
+        public async Task UpdateInventoryAsync(Inventory inventory)
+        {
+            await _supabaseClient
+                .From<Inventory>()
+                .Where(i => i.inventory_id == inventory.inventory_id)
+                .Set(i => i.available, inventory.available)
+                .Update();
+        }
+        public async Task UpdatePetrolTypeAsync(PetrolType petrolType)
+        {
+            await _supabaseClient
+                .From<PetrolType>()
+                .Update(petrolType);
+        }
+    }
+
+    [Table("inventory")]
+    public class Inventory : BaseModel
+    {
+        public int inventory_id { get; set; }
+        public string petrol_name { get; set; } = string.Empty;
+        [Column("available")]
+        public double available { get; set; }
+        public double max { get; set; }
+    }
+
+    [Table("petrol_type")]
+    public class PetrolType : BaseModel
+    {
+        [PrimaryKey("id", false)]
+        public int id { get; set; }
+        public string petrol_name { get; set; } = string.Empty;
+        [Column("price_per_liter")]
+        public double price_per_liter { get; set; }
+        [Column("tax")]
+        public double tax { get; set; }
     }
 }

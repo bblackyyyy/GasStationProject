@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
     <PackageReference Include="Npgsql" Version="9.0.3" />
+    <PackageReference Include="QuestPDF" Version="2025.5.1" />
     <PackageReference Include="Supabase" Version="1.1.1" />
   </ItemGroup>
 
@@ -29,6 +31,12 @@
     <Content Include="Pages\Icons\logout.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update=".env">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

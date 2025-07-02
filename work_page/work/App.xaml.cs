@@ -1,14 +1,15 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using DotNetEnv;
+using System;
 using System.Windows;
 
 namespace work
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            Env.Load();                      
+            base.OnStartup(e);
+        }
     }
-
 }

@@ -84,7 +84,7 @@ namespace work.Pages {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/work;V1.0.0.0;component/pages/addfuelwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/work;component/pages/addfuelwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Pages\AddFuelWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

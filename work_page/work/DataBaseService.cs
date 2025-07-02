@@ -1,8 +1,13 @@
-﻿using Supabase;
-using Supabase.Postgrest.Models;
-using Supabase.Postgrest.Attributes;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Supabase;
+using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
+using System.Linq;
+using DotNetEnv;
+
+
 
 namespace work
 {
@@ -10,8 +15,11 @@ namespace work
     {
         private readonly Supabase.Client _supabaseClient;
 
-        private const string SupabaseUrl = "https://aovmwvcrszjxevuiilzz.supabase.co";
-        private const string SupabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvdm13dmNyc3pqeGV2dWlpbHp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE1MjI4MTUsImV4cCI6MjA1NzA5ODgxNX0.Agf_enVje9oOlIQy3FPuHrMkBo8DPBDEMlob9K4YgMo";
+        private static readonly string SupabaseUrl = Environment.GetEnvironmentVariable("SUPABASE_URL")
+            ?? throw new Exception("Missing SUPABASE_URL environment variable");
+
+        private static readonly string SupabaseKey = Environment.GetEnvironmentVariable("SUPABASE_KEY")
+            ?? throw new Exception("Missing SUPABASE_KEY environment variable");
 
         public DataBaseService()
         {
@@ -62,6 +70,46 @@ namespace work
                 .From<PetrolType>()
                 .Update(petrolType);
         }
+        public async Task<List<MonitoringRow>> GetMonitoringRowsAsync()
+        {
+            var transaction = (await _supabaseClient
+                .From<Transaction>()
+                .Get()).Models;
+
+            var grouped = transaction
+                .GroupBy(t => new { t.StationId, t.PumpId })
+                .Select(g => new MonitoringRow
+                {
+                    StationId = g.Key.StationId,
+                    PumpId = g.Key.PumpId,
+                    Amount = g.Sum(x => x.QuantityLiters),
+                    Income = g.Sum(x => (double)x.Money),
+                    Date = g.Max(x => x.DataTime)
+                })
+                .OrderBy(r => r.StationId)
+                .ThenBy(r => r.PumpId)
+                .ToList();
+
+            return grouped;
+        }
+
+        public async Task<List<Transaction>> GetTransactionsByGroupAsync(long stationId, long pumpId)
+        {
+            var transactions = (await _supabaseClient
+                .From<Transaction>()
+                .Where(t => t.StationId == stationId && t.PumpId == pumpId)
+                .Get()).Models;
+
+            return transactions;
+        }
+
+        public async Task<List<Transaction>> GetTransactionsAsync(DateTime fromDate, DateTime toDate)
+        {
+            return (await _supabaseClient
+                .From<Transaction>()
+                .Where(t => t.DataTime >= fromDate && t.DataTime <= toDate)
+                .Get()).Models;
+        }
     }
 
     [Table("inventory")]
@@ -84,5 +132,33 @@ namespace work
         public double price_per_liter { get; set; }
         [Column("tax")]
         public double tax { get; set; }
+    }
+
+    public class MonitoringRow
+    {
+        public long? StationId { get; set; }
+        public long? PumpId { get; set; }
+        public double Amount { get; set; }
+        public double Income { get; set; }
+        public DateTime Date { get; set; }
+    }
+
+    [Table("transaction")]
+    public class Transaction : BaseModel
+    {
+        [Column("transaction_id")]
+        public long TransactionId { get; set; }
+        [Column("data_time")]
+        public DateTime DataTime { get; set; }
+        [Column("quantity_liters")]
+        public double QuantityLiters { get; set; }
+        [Column("money")]
+        public decimal Money { get; set; }
+        [Column("fuel_type")]
+        public string FuelType { get; set; }
+        [Column("station_id")]
+        public long? StationId { get; set; }
+        [Column("pump_id")]
+        public long? PumpId { get; set; }
     }
 }

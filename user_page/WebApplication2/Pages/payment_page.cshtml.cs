@@ -121,7 +121,7 @@ namespace WebApplication2.Pages
 
             
             float remaining = await _db.SetAvailable(StationId, Fuel, (float)Litres);
-            long transactionId = await _db.SetTransaction(StationId, Fuel, (float)Litres, (float)Total, DateTime.Now);
+            long transactionId = await _db.SetTransaction(StationId, Fuel, (float)Litres, (float)Total, DateTime.Now, PumpId);
 
             
             return File(bytes, "application/pdf", $"receipt_{StationId}_{PumpId}_{timestamp}.pdf");
@@ -162,7 +162,7 @@ namespace WebApplication2.Pages
             var service = new SessionService();
             var session = await service.CreateAsync(options);
             float remaining = await _db.SetAvailable(StationId, Fuel, (float)Litres);
-            long a = await _db.SetTransaction(StationId, Fuel, (float)Litres, (float)Total, DateTime.Now);
+            long a = await _db.SetTransaction(StationId, Fuel, (float)Litres, (float)Total, DateTime.Now, PumpId);
             return new JsonResult(new { sessionId = session.Id });
         }
     }

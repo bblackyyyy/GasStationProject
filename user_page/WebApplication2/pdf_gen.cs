@@ -2,6 +2,7 @@
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using Stripe;
 
 namespace WebApplication2.pdf_gen
 {
@@ -9,14 +10,14 @@ namespace WebApplication2.pdf_gen
 
     public static class PdfGen
     {
-        public static void Generate(int stationId, int pumpId, FuelType fuelType, float price, float discount, float totalLiters)
+        public static void Generate(int stationId, int pumpId, FuelType fuelType, float price,  float  price_fin, float discount, float totalLiters)
         {
             var now = DateTime.Now;
             var timestamp = now.ToString("yyyyMMddHHmmss");
             var fileName = $"receipt_{stationId}_{pumpId}_{timestamp}.pdf";
 
             
-            float subtotal = price * totalLiters;
+            float subtotal = price_fin;
             float discountAmount = subtotal * discount / 100f;
             float total = subtotal - discountAmount;
 

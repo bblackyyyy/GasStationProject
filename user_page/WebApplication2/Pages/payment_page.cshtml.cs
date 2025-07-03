@@ -101,6 +101,7 @@ namespace WebApplication2.Pages
                 stationId:    StationId,
                 pumpId:       PumpId,
                 fuelType:     fuelEnum,
+                price_fin:    (float)Total,
                 price:        _db.GetPrice(Fuel).Result,
                 discount:     0f,
                 totalLiters:  (float)Litres
